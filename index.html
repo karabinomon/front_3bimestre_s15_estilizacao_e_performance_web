@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estilização e Performance de Páginas Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-p1: #0284c7;
+      --accent-p2: #7c3aed;
+      --accent-p3: #d97706;
+      --border-color: #e2e8f0;
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 3rem 1.5rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3.5rem;
+    }
+
+    h1 {
+      font-size: 2.75rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #0284c7 0%, #7c3aed 50%, #d97706 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    /* Cards Grid */
+    .modules-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .module-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+
+    .card-p1:hover { border-color: var(--accent-p1); }
+    .card-p2:hover { border-color: var(--accent-p2); }
+    .card-p3:hover { border-color: var(--accent-p3); }
+
+    .card-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      border-radius: 20px;
+      margin-bottom: 1.25rem;
+      width: fit-content;
+    }
+
+    .tag-p1 { background: rgba(2, 132, 199, 0.1); color: var(--accent-p1); }
+    .tag-p2 { background: rgba(124, 58, 237, 0.1); color: var(--accent-p2); }
+    .tag-p3 { background: rgba(217, 119, 6, 0.1); color: var(--accent-p3); }
+
+    .module-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-main);
+    }
+
+    .module-desc {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .features-list {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .features-list li {
+      font-size: 0.85rem;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-card {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.25rem;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-p1 { background: rgba(2, 132, 199, 0.1); color: var(--accent-p1); }
+    .btn-p2 { background: rgba(124, 58, 237, 0.1); color: var(--accent-p2); }
+    .btn-p3 { background: rgba(217, 119, 6, 0.1); color: var(--accent-p3); }
+
+    .module-card:hover .btn-p1 { background: var(--accent-p1); color: white; }
+    .module-card:hover .btn-p2 { background: var(--accent-p2); color: white; }
+    .module-card:hover .btn-p3 { background: var(--accent-p3); color: white; }
+
+    footer {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      border-top: 1px solid var(--border-color);
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Estilização e Performance de Páginas Web</h1>
+    </header>
+
+    <div class="modules-grid">
+
+      <!-- AULA 1: LAYOUT RESPONSIVO -->
+      <a href="pagina1_responsive_grid.html" class="module-card card-p1">
+        <div>
+          <span class="card-tag tag-p1">Página 1 • Layouts</span>
+          <h2 class="module-title">Layout Responsivo com CSS Grid</h2>
+          <p class="module-desc">Organize cabeçalho, menu, conteúdo e rodapé com <code>grid-template-areas</code> e reaja a telas pequenas via Media Queries.</p>
+
+          <ul class="features-list">
+            <li>📐 Grid com <code>grid-template-areas</code></li>
+            <li>📱 Slider de resolução interativo (320px–1000px)</li>
+            <li>🔍 Inspetor de Media Queries em tempo real</li>
+          </ul>
+        </div>
+
+        <div class="btn-card btn-p1">
+          Acessar Aula 1 →
+        </div>
+      </a>
+
+      <!-- AULA 2: FERRAMENTAS DE CÓDIGO -->
+      <a href="pagina2_ferramentas.html" class="module-card card-p2">
+        <div>
+          <span class="card-tag tag-p2">Página 2 • Qualidade</span>
+          <h2 class="module-title">Ferramentas de Código</h2>
+          <p class="module-desc">Descubra como manter padrões com Prettier, garantir qualidade com ESLint e transpilar JS moderno com o Babel.</p>
+
+          <ul class="features-list">
+            <li>🎨 Formatador Prettier + Linter ESLint</li>
+            <li>🔍 Relatório de regras corrigidas</li>
+            <li>🔄 Transpilador Babel (ES6+ → ES5)</li>
+          </ul>
+        </div>
+
+        <div class="btn-card btn-p2">
+          Acessar Aula 2 →
+        </div>
+      </a>
+
+      <!-- AULA 3: OTIMIZAÇÃO E PERFORMANCE -->
+      <a href="pagina3_performance.html" class="module-card card-p3">
+        <div>
+          <span class="card-tag tag-p3">Página 3 • Performance</span>
+          <h2 class="module-title">Otimização e Performance Web</h2>
+          <p class="module-desc">Aprenda a acelerar carregamentos usando Lazy Loading, minificação de CSS e auditorias com Google Lighthouse.</p>
+
+          <ul class="features-list">
+            <li>⚡ Simulador Eager vs Lazy Loading</li>
+            <li>✂️ Minificador de CSS em tempo real</li>
+            <li>📊 Gauge do Google Lighthouse</li>
+          </ul>
+        </div>
+
+        <div class="btn-card btn-p3">
+          Acessar Aula 3 →
+        </div>
+      </a>
+
+    </div>
+  </div>
+
+  <footer>
+    <p>Índice de Aulas Interativas de Desenvolvimento Front-End • 2026</p>
+  </footer>
+
+</body>
+</html>

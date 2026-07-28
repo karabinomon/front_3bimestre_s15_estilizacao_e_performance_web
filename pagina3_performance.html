@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página 3: Otimização de Performance Web</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #f1f5f9;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-primary: #0284c7;
+      --accent-success: #16a34a;
+      --accent-warning: #d97706;
+      --accent-danger: #dc2626;
+      --border-color: #e2e8f0;
+      --code-bg: #0f172a;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--accent-primary);
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      transition: opacity 0.2s;
+    }
+    .nav-link:hover {
+      opacity: 0.8;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #0369a1;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-blue { background: rgba(2, 132, 199, 0.1); color: var(--accent-primary); border: 1px solid var(--accent-primary); }
+    .badge-green { background: rgba(22, 163, 74, 0.1); color: var(--accent-success); border: 1px solid var(--accent-success); }
+
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .concept-box {
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 8px;
+    }
+
+    .concept-box h3 {
+      font-size: 1.1rem;
+      color: var(--accent-primary);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .concept-box p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    /* Legenda FCP e LCP em linha (Row) */
+    .metrics-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px dashed var(--border-color);
+    }
+    @media (max-width: 768px) {
+      .metrics-row { grid-template-columns: 1fr; }
+    }
+
+    .metric-card {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid var(--accent-primary);
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .metric-card:nth-child(2) {
+      border-left-color: #7c3aed;
+    }
+
+    .metric-header {
+      margin-bottom: 0.4rem;
+    }
+
+    .metric-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .metric-card h4 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .metric-card p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .simulator-controls {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      background: #f1f5f9;
+      padding: 1rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 1.25rem;
+      gap: 1rem;
+    }
+
+    .toggle-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 26px;
+    }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #94a3b8; transition: .3s; border-radius: 34px;
+    }
+    .slider:before {
+      position: absolute; content: ""; height: 18px; width: 18px; left: 4px; bottom: 4px;
+      background-color: white; transition: .3s; border-radius: 50%;
+    }
+    input:checked + .slider { background-color: var(--accent-success); }
+    input:checked + .slider:before { transform: translateX(24px); }
+
+    .stats-bar {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .stat-item {
+      text-align: right;
+    }
+    .stat-value {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-primary);
+    }
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .viewport-frame {
+      border: 2px dashed #cbd5e1;
+      border-radius: 8px;
+      height: 380px;
+      overflow-y: scroll;
+      position: relative;
+      background: #f8fafc;
+      padding: 1rem;
+    }
+
+    .viewport-notice {
+      position: sticky;
+      top: 0;
+      background: var(--accent-primary);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      z-index: 10;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .image-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .img-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 1rem;
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+      transition: border-color 0.3s;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+    .img-card.loaded {
+      border-color: var(--accent-success);
+    }
+
+    .img-placeholder {
+      width: 120px;
+      height: 80px;
+      border-radius: 6px;
+      background: #e2e8f0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .img-placeholder img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-info h4 {
+      font-size: 0.95rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .img-status {
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .status-pending { color: var(--accent-warning); }
+    .status-loaded { color: var(--accent-success); }
+
+    .editor-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 768px) {
+      .editor-layout { grid-template-columns: 1fr; }
+    }
+
+    .code-editor {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .editor-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    textarea, pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 1rem;
+      width: 100%;
+      height: 200px;
+      resize: none;
+      outline: none;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      word-break: break-all;
+      overflow-y: auto;
+    }
+
+    .btn {
+      background: var(--accent-primary);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: opacity 0.2s, transform 0.1s;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.98); }
+    .btn-secondary {
+      background: #64748b;
+      color: white;
+    }
+
+    .action-bar {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: center;
+    }
+
+    .compression-badge {
+      background: rgba(22, 163, 74, 0.1);
+      color: var(--accent-success);
+      border: 1px solid var(--accent-success);
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .lighthouse-panel {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      padding: 1.5rem;
+      border-radius: 8px;
+      margin-top: 1rem;
+    }
+    @media (max-width: 600px) {
+      .lighthouse-panel { flex-direction: column; text-align: center; }
+    }
+
+    .score-circle {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 6px solid var(--accent-success);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--accent-success);
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="nav-link">← Voltar ao Índice de Aulas</a>
+      <h1>Otimização de Performance Web</h1>
+      <p class="subtitle">Aprenda na prática como Lazy Loading, Minificação CSS e o Google Lighthouse impulsionam o desempenho da sua aplicação.</p>
+    </header>
+
+    <!-- Seção de Conceitos Teóricos Básicos -->
+    <div class="card">
+      <div class="card-title">
+        <span>💡 Conceitos Chave de Performance</span>
+        <span class="badge badge-blue">Fundamentos</span>
+      </div>
+
+      <div class="concept-grid">
+        <div class="concept-box">
+          <h3>🖼️ Lazy Loading</h3>
+          <p>Instrui o navegador a adiar o carregamento de imagens fora da tela até que o usuário role a página até elas, reduzindo o tempo de carregamento inicial (FCP/LCP) e economizando dados.</p>
+        </div>
+        <div class="concept-box">
+          <h3>⚡ Minificação CSS</h3>
+          <p>Processo de remoção de espaços em branco, quebras de linha e comentários do código sem alterar sua funcionalidade, reduzindo o peso do arquivo transferido via rede.</p>
+        </div>
+        <div class="concept-box">
+          <h3>🚨 Google Lighthouse</h3>
+          <p>Ferramenta automatizada do Google que analisa a qualidade da página web, avaliando pontuações de Performance, Acessibilidade, Boas Práticas e SEO.</p>
+        </div>
+      </div>
+
+      <!-- Legenda das Métricas Core Web Vitals (FCP e LCP) -->
+      <div class="metrics-row">
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-badge">Métrica Lighthouse</span>
+            <h4>⏱️ FCP (First Contentful Paint)</h4>
+          </div>
+          <p>
+            Mede o tempo decorrido desde o início do carregamento até o momento em que o <strong>primeiro elemento de conteúdo</strong> (texto, imagem ou canvas) é renderizado na tela.
+          </p>
+        </div>
+
+        <div class="metric-card">
+          <div class="metric-header">
+            <span class="metric-badge" style="color: #7c3aed;">Métrica Lighthouse</span>
+            <h4>🖼️ LCP (Largest Contentful Paint)</h4>
+          </div>
+          <p>
+            Mede o tempo necessário para carregar e renderizar o <strong>maior bloco de conteúdo visível</strong> na página (como o banner hero principal ou uma imagem de destaque).
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interatividade 1: Simulador de Lazy Loading -->
+    <div class="card">
+      <div class="card-title">
+        <span>🎮 Simulador Interativo: Eager vs Lazy Loading</span>
+        <span class="badge badge-green">Interativo</span>
+      </div>
+
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Role o container simulado abaixo para ver como o atributo <code>loading="lazy"</code> solicita imagens dinamicamente apenas quando elas entram na janela de visualização (Viewport).
+      </p>
+
+      <div class="simulator-controls">
+        <div class="toggle-group">
+          <span>Modo Eager (Tudo de uma vez)</span>
+          <label class="switch">
+            <input type="checkbox" id="lazyToggle" checked onchange="resetSimulator()">
+            <span class="slider"></span>
+          </label>
+          <span style="font-weight: 700; color: var(--accent-success);">Modo Lazy Loading (Ativo)</span>
+        </div>
+
+        <div class="stats-bar">
+          <div class="stat-item">
+            <div class="stat-value" id="reqCount">0 / 8</div>
+            <div class="stat-label">Imagens Baixadas</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="bytesCount">0 KB</div>
+            <div class="stat-label">Dados Transferidos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="viewport-frame" id="scrollViewport" onscroll="handleScroll()">
+        <div class="viewport-notice">↓ Role para baixo para simular a navegação do usuário ↓</div>
+        <div class="image-feed" id="imageFeed">
+          <!-- Gerado dinamicamente via JS -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Interatividade 2: Minificador de CSS -->
+    <div class="card">
+      <div class="card-title">
+        <span>🛠️ Mini-Painel: Minificador de CSS em Tempo Real</span>
+        <span class="badge badge-blue">Prática</span>
+      </div>
+
+      <p style="color: var(--text-muted); margin-bottom: 1rem;">
+        Veja a transformação do CSS legível em um código minificado compacto pronto para produção.
+      </p>
+
+      <div class="editor-layout">
+        <div class="code-editor">
+          <div class="editor-header">
+            <span>CSS Tradicional (Leitura Humana)</span>
+            <span id="origSize">342 bytes</span>
+          </div>
+          <textarea id="cssInput" oninput="updateCSSStats()"></textarea>
+        </div>
+
+        <div class="code-editor">
+          <div class="editor-header">
+            <span>CSS Minificado (Produção)</span>
+            <span id="miniSize">0 bytes</span>
+          </div>
+          <pre id="cssOutput">Clique em "Minificar CSS" abaixo...</pre>
+        </div>
+      </div>
+
+      <div class="action-bar">
+        <button class="btn" onclick="minifyCSS()">⚡ Minificar CSS</button>
+        <button class="btn btn-secondary" onclick="restoreCSS()">↺ Restaurar Padrão</button>
+        <div class="compression-badge" id="savingsBadge">Economia: 0%</div>
+      </div>
+    </div>
+
+    <!-- Painel de Impacto do Lighthouse -->
+    <div class="card">
+      <div class="card-title">
+        <span>📊 Impacto na Pontuação do Google Lighthouse</span>
+      </div>
+
+      <div class="lighthouse-panel">
+        <div class="score-circle" id="scoreCircle">98</div>
+        <div>
+          <h4 style="font-size: 1.1rem; margin-bottom: 0.3rem;" id="lighthouseStatus">Performance Excelente (98/100)</h4>
+          <p style="color: var(--text-muted); font-size: 0.9rem;">
+            Com imagens em <strong>Lazy Loading</strong> e CSS <strong>Minificado</strong>, o tempo de bloqueio de renderização é reduzido drasticamente, garantindo notas altas nas métricas LCP (Largest Contentful Paint) e FCP (First Contentful Paint).
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const totalImages = 8;
+    const imgSizeKB = 250;
+    let loadedSet = new Set();
+
+    const sampleImages = [
+      "https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1607799279861-4dd421887fb3?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1542831371-29b0f74f9713?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1515879218367-8466d910aaa4?w=200&auto=format&fit=crop&q=60",
+      "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=200&auto=format&fit=crop&q=60"
+    ];
+
+    function initSimulator() {
+      const feed = document.getElementById('imageFeed');
+      feed.innerHTML = '';
+      loadedSet.clear();
+
+      for (let i = 0; i < totalImages; i++) {
+        const item = document.createElement('div');
+        item.className = 'img-card';
+        item.id = `card-${i}`;
+        item.innerHTML = `
+          <div class="img-placeholder" id="ph-${i}">
+            <span>Aguardando Scroll</span>
+          </div>
+          <div class="img-info">
+            <h4>Imagem da Galeria #${i + 1}</h4>
+            <div class="img-status status-pending" id="st-${i}">⏳ Status: Não Carregada</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.25rem;">Tamanho: ${imgSizeKB} KB | atributo: loading="${document.getElementById('lazyToggle').checked ? 'lazy' : 'eager'}"</div>
+          </div>
+        `;
+        feed.appendChild(item);
+      }
+
+      if (!document.getElementById('lazyToggle').checked) {
+        for (let i = 0; i < totalImages; i++) {
+          loadImage(i);
+        }
+      } else {
+        handleScroll();
+      }
+    }
+
+    function loadImage(index) {
+      if (loadedSet.has(index)) return;
+      loadedSet.add(index);
+
+      const ph = document.getElementById(`ph-${index}`);
+      const st = document.getElementById(`st-${index}`);
+      const card = document.getElementById(`card-${index}`);
+
+      if (ph && st && card) {
+        ph.innerHTML = `<img src="${sampleImages[index]}" alt="Foto ${index + 1}">`;
+        st.innerText = '✅ Status: Carregada via Rede';
+        st.className = 'img-status status-loaded';
+        card.classList.add('loaded');
+      }
+
+      updateSimulatorStats();
+    }
+
+    function handleScroll() {
+      const isLazy = document.getElementById('lazyToggle').checked;
+      if (!isLazy) return;
+
+      const viewport = document.getElementById('scrollViewport');
+      const viewportBottom = viewport.scrollTop + viewport.clientHeight;
+
+      for (let i = 0; i < totalImages; i++) {
+        const card = document.getElementById(`card-${i}`);
+        if (card) {
+          const cardTop = card.offsetTop;
+          if (cardTop < viewportBottom + 40) {
+            loadImage(i);
+          }
+        }
+      }
+    }
+
+    function updateSimulatorStats() {
+      const count = loadedSet.size;
+      const totalKB = count * imgSizeKB;
+      document.getElementById('reqCount').innerText = `${count} / ${totalImages}`;
+      document.getElementById('bytesCount').innerText = `${totalKB} KB`;
+
+      const isLazy = document.getElementById('lazyToggle').checked;
+      const circle = document.getElementById('scoreCircle');
+      const status = document.getElementById('lighthouseStatus');
+
+      if (isLazy && count < totalImages) {
+        circle.innerText = '98';
+        circle.style.borderColor = 'var(--accent-success)';
+        circle.style.color = 'var(--accent-success)';
+        status.innerText = 'Performance Excelente (98/100)';
+      } else if (!isLazy) {
+        circle.innerText = '58';
+        circle.style.borderColor = 'var(--accent-warning)';
+        circle.style.color = 'var(--accent-warning)';
+        status.innerText = 'Performance Moderada (58/100) - Carga Inicial Alta';
+      }
+    }
+
+    function resetSimulator() {
+      initSimulator();
+    }
+
+    const defaultCSS = `/* Estilos do Cabeçalho */
+header.hero-section {
+  background-color: #0f172a;
+  padding: 32px 16px;
+  border-bottom: 2px solid #334155;
+}
+
+/* Botão Principal */
+.btn-primary {
+  color: #ffffff;
+  font-size: 16px;
+  margin-top: 12px;
+  transition: all 0.3s ease;
+}`;
+
+    function initCSSMinifier() {
+      document.getElementById('cssInput').value = defaultCSS;
+      updateCSSStats();
+    }
+
+    function updateCSSStats() {
+      const val = document.getElementById('cssInput').value;
+      document.getElementById('origSize').innerText = `${new Blob([val]).size} bytes`;
+    }
+
+    function minifyCSS() {
+      const input = document.getElementById('cssInput').value;
+      const minified = input
+        .replace(/\/\*[\s\S]*?\*\//g, '')
+        .replace(/\s+/g, ' ')
+        .replace(/\s*([{}:;,])\s*/g, '$1')
+        .trim();
+
+      document.getElementById('cssOutput').innerText = minified;
+
+      const origBytes = new Blob([input]).size;
+      const miniBytes = new Blob([minified]).size;
+      document.getElementById('miniSize').innerText = `${miniBytes} bytes`;
+
+      const savings = origBytes > 0 ? Math.round(((origBytes - miniBytes) / origBytes) * 100) : 0;
+      document.getElementById('savingsBadge').innerText = `Economia: ${savings}% reduzido`;
+    }
+
+    function restoreCSS() {
+      document.getElementById('cssInput').value = defaultCSS;
+      document.getElementById('cssOutput').innerText = 'Clique em "Minificar CSS" abaixo...';
+      document.getElementById('savingsBadge').innerText = 'Economia: 0%';
+      updateCSSStats();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initSimulator();
+      initCSSMinifier();
+    });
+  </script>
+</body>
+</html>

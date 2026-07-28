@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página 2: Ferramentas de Código (Prettier, ESLint & Babel)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --accent-prettier: #ea580c;
+      --accent-eslint: #7c3aed;
+      --accent-babel: #d97706;
+      --accent-success: #16a34a;
+      --border-color: #e2e8f0;
+      --code-bg: #0f172a;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      transition: opacity 0.2s;
+    }
+    .nav-link:hover { opacity: 0.8; }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #6d28d9;
+      margin-bottom: 0.5rem;
+    }
+
+    p.subtitle {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+
+    .card-title {
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .badge-tools { background: rgba(124, 58, 237, 0.1); color: var(--accent-eslint); border: 1px solid var(--accent-eslint); }
+    .badge-babel { background: rgba(217, 119, 6, 0.1); color: var(--accent-babel); border: 1px solid var(--accent-babel); }
+
+    /* Cards de Ferramentas */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 1rem;
+    }
+
+    .tool-box {
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      padding: 1.25rem;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+    .tool-box::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; width: 4px; height: 100%;
+    }
+    .tool-prettier::before { background: var(--accent-prettier); }
+    .tool-eslint::before { background: var(--accent-eslint); }
+    .tool-babel::before { background: var(--accent-babel); }
+
+    .tool-box h3 {
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Área de Interatividade Antes & Depois */
+    .split-editor {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    @media (max-width: 768px) {
+      .split-editor { grid-template-columns: 1fr; }
+    }
+
+    .editor-column {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .editor-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    textarea, pre {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85rem;
+      background: var(--code-bg);
+      border: 1px solid var(--border-color);
+      color: #f8fafc;
+      border-radius: 8px;
+      padding: 1rem;
+      width: 100%;
+      height: 220px;
+      resize: none;
+      outline: none;
+    }
+
+    pre {
+      white-space: pre-wrap;
+      overflow-y: auto;
+    }
+
+    .btn {
+      background: var(--accent-eslint);
+      color: white;
+      border: none;
+      padding: 0.65rem 1.25rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: opacity 0.2s, transform 0.1s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .btn:hover { opacity: 0.9; }
+    .btn:active { transform: scale(0.98); }
+
+    .btn-babel {
+      background: var(--accent-babel);
+    }
+    .btn-secondary {
+      background: #64748b;
+      color: white;
+    }
+
+    .rules-applied {
+      margin-top: 1rem;
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+
+    .rules-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--accent-success);
+      margin-bottom: 0.5rem;
+    }
+
+    .rule-tag {
+      display: inline-block;
+      background: rgba(22, 163, 74, 0.1);
+      border: 1px solid rgba(22, 163, 74, 0.3);
+      color: var(--accent-success);
+      font-size: 0.75rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      margin-right: 0.5rem;
+      margin-bottom: 0.4rem;
+      font-family: 'Fira Code', monospace;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <a href="index.html" class="nav-link">← Voltar ao Índice de Aulas</a>
+      <h1>Ferramentas de Código Modernas</h1>
+      <p class="subtitle">Descubra como o Prettier, ESLint e Babel garantem um código limpo, padronizado e compatível com todos os navegadores.</p>
+    </header>
+
+    <!-- Resumo dos Conceitos -->
+    <div class="card">
+      <div class="card-title">
+        <span>📚 Entendendo as Ferramentas</span>
+        <span class="badge badge-tools">Conceitos</span>
+      </div>
+
+      <div class="tools-grid">
+        <div class="tool-box tool-prettier">
+          <h3 style="color: var(--accent-prettier);">🎨 Prettier</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            <strong>Formatador de Código Opinativo:</strong> Reorganiza a estrutura do código automaticamente (quebras de linha, espaçamentos, indentação) garantindo consistência visual em todo o projeto.
+          </p>
+        </div>
+
+        <div class="tool-box tool-eslint">
+          <h3 style="color: var(--accent-eslint);">🛡️ ESLint</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            <strong>Linter de Qualidade:</strong> Analisa o código em busca de erros sintáticos, variáveis não utilizadas, uso incorreto de escopos e impõe boas práticas de programação.
+          </p>
+        </div>
+
+        <div class="tool-box tool-babel">
+          <h3 style="color: var(--accent-babel);">⚡ Babel</h3>
+          <p style="font-size: 0.9rem; color: var(--text-muted);">
+            <strong>Transpilador JavaScript:</strong> Converte código moderno (ES6+, Arrow Functions, Async/Await) para sintaxe legada (ES5), permitindo rodar em navegadores antigos sem quebrar.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interatividade 1: Prettier + ESLint -->
+    <div class="card">
+      <div class="card-title">
+        <span>✨ Simulador Antes & Depois: Prettier & ESLint</span>
+        <span class="badge badge-tools">Interativo</span>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Veja como um código desformatado e fora dos padrões é limpo e corrigido automaticamente ao rodar o Prettier/ESLint.
+      </p>
+
+      <div class="split-editor">
+        <div class="editor-column">
+          <div class="editor-label">
+            <span>❌ Antes (Código Bagunçado)</span>
+            <span>Input Editável</span>
+          </div>
+          <textarea id="messyCode" oninput="resetLinterState()"></textarea>
+        </div>
+
+        <div class="editor-column">
+          <div class="editor-label">
+            <span>✅ Depois (Prettier & ESLint Aplicados)</span>
+            <span id="linterStatus">Aguardando Execução...</span>
+          </div>
+          <pre id="cleanCode">Clique no botão abaixo para formatar o código...</pre>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <button class="btn" onclick="runPrettierESLint()">🪄 Rodar Prettier & ESLint</button>
+        <button class="btn btn-secondary" onclick="restoreMessyCode()">↺ Restaurar Código Desordenado</button>
+      </div>
+
+      <div class="rules-applied" id="rulesPanel" style="display: none;">
+        <div class="rules-title">🔍 Correções efetuadas pelo Prettier & ESLint:</div>
+        <div id="rulesList"></div>
+      </div>
+    </div>
+
+    <!-- Interatividade 2: Babel Transpiler -->
+    <div class="card">
+      <div class="card-title">
+        <span>🔄 Simulador de Transpilação: Babel JS</span>
+        <span class="badge badge-babel">Babel ES6+ → ES5</span>
+      </div>
+
+      <p style="color: var(--text-muted); font-size: 0.95rem;">
+        Converta Arrow Functions (<code>const fn = () =&gt; {}</code>), Template Literals e declarações modernas para a sintaxe tradicional suportada por navegadores legados.
+      </p>
+
+      <div class="split-editor">
+        <div class="editor-column">
+          <div class="editor-label">
+            <span>🚀 Código Moderno (ES6+)</span>
+            <span>Arrow Functions & Template Strings</span>
+          </div>
+          <textarea id="modernCode"></textarea>
+        </div>
+
+        <div class="editor-column">
+          <div class="editor-label">
+            <span>🏛️ Código Transpilado (ES5 Legado)</span>
+            <span>Sintaxe Tradicional</span>
+          </div>
+          <pre id="legacyCode">Clique em "Rodar Babel" para transpilar...</pre>
+        </div>
+      </div>
+
+      <div style="margin-top: 1rem; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap;">
+        <button class="btn btn-babel" onclick="runBabel()">⚡ Rodar Babel Transpiler</button>
+        <button class="btn btn-secondary" onclick="restoreModernCode()">↺ Código Exemplo</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // --- LÓGICA DO PRETTIER / ESLINT SIMULATOR ---
+    const initialMessyJS = `function  calcularMedia(  n1 ,n2){
+let soma=n1+n2;
+   var  media = soma/ 2
+   const mensagem = "A media do aluno eh: " + media ;
+console.log(mensagem)
+  return media
+}`;
+
+    function initLinter() {
+      document.getElementById('messyCode').value = initialMessyJS;
+    }
+
+    function runPrettierESLint() {
+      const code = document.getElementById('messyCode').value;
+
+      let formatted = code
+        .replace(/var\s+/g, 'const ')
+        .replace(/"([^"]*)"/g, "'$1'")
+        .replace(/\s*=\s*/g, ' = ')
+        .replace(/\s*\+\s*/g, ' + ')
+        .replace(/\s*\/\s*/g, ' / ')
+        .replace(/,\s*/g, ', ')
+        .replace(/\(\s+/g, '(').replace(/\s+\)/g, ')')
+        .split('\n')
+        .map(line => {
+          let trimmed = line.trim();
+          if (!trimmed) return '';
+          if (!trimmed.endsWith(';') && !trimmed.endsWith('{') && !trimmed.endsWith('}')) {
+            trimmed += ';';
+          }
+          if (trimmed.startsWith('const') || trimmed.startsWith('let') || trimmed.startsWith('console') || trimmed.startsWith('return')) {
+            return '  ' + trimmed;
+          }
+          return trimmed;
+        })
+        .join('\n');
+
+      document.getElementById('cleanCode').innerText = formatted;
+      document.getElementById('linterStatus').innerText = '✅ Formatado & Validado';
+      document.getElementById('linterStatus').style.color = 'var(--accent-success)';
+
+      const rulesPanel = document.getElementById('rulesPanel');
+      const rulesList = document.getElementById('rulesList');
+      rulesPanel.style.display = 'block';
+
+      rulesList.innerHTML = `
+        <span class="rule-tag">prettier/single-quote: Aspas duplas convertidas em simples</span>
+        <span class="rule-tag">prettier/semi: Adicionados pontos e vírgulas (;) explícitos</span>
+        <span class="rule-tag">eslint/no-var: Substituído 'var' obsoleto por 'const'</span>
+        <span class="rule-tag">prettier/indentation: Indentação padronizada para 2 espaços</span>
+        <span class="rule-tag">eslint/space-infix-ops: Normalizado espaço em operadores (+, =, /)</span>
+      `;
+    }
+
+    function resetLinterState() {
+      document.getElementById('cleanCode').innerText = 'Clique no botão abaixo para formatar o código...';
+      document.getElementById('linterStatus').innerText = 'Modificado (Pendente)';
+      document.getElementById('linterStatus').style.color = 'var(--accent-babel)';
+      document.getElementById('rulesPanel').style.display = 'none';
+    }
+
+    function restoreMessyCode() {
+      document.getElementById('messyCode').value = initialMessyJS;
+      resetLinterState();
+    }
+
+    // --- LÓGICA DO BABEL TRANSPILED SIMULATOR ---
+    const defaultModernJS = `// ES6+ Moderno com Arrow Function e Template Literal
+const saudacao = (nome, cargo = 'Desenvolvedor') => {
+  const mensagem = \`Olá \${nome}, seja bem-vindo ao cargo de \${cargo}!\`;
+  return mensagem;
+};
+
+const usuario = { nome: "Ana", idade: 25 };
+const { nome } = usuario;`;
+
+    function initBabel() {
+      document.getElementById('modernCode').value = defaultModernJS;
+    }
+
+    function runBabel() {
+      const modern = document.getElementById('modernCode').value;
+
+      let legacy = modern
+        .replace(/\bconst\b/g, 'var')
+        .replace(/\blet\b/g, 'var')
+        .replace(/var\s+(\w+)\s*=\s*\(([^)]*)\)\s*=>\s*\{/g, function(match, fnName, params) {
+          return 'var ' + fnName + ' = function(' + params + ') {';
+        })
+        .replace(/`([^`]*)\${([^}]+)}([^`]*)`/g, '"$1" + $2 + "$3"')
+        .replace(/var\s*\{\s*(\w+)\s*\}\s*=\s*(\w+);/g, 'var $1 = $2.$1;');
+
+      document.getElementById('legacyCode').innerText = `/* Código Transpilado pelo Babel para compatibilidade ES5 */\n` + legacy;
+    }
+
+    function restoreModernCode() {
+      document.getElementById('modernCode').value = defaultModernJS;
+      document.getElementById('legacyCode').innerText = 'Clique em "Rodar Babel" para transpilar...';
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      initLinter();
+      initBabel();
+    });
+  </script>
+</body>
+</html>
