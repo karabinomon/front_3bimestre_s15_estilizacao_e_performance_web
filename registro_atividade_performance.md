@@ -1,7 +1,7 @@
 # Registro de Atividade - Otimizando a Performance Web
 
-**Escola Manoel Ignácio** - Desenvolvimento de Sistemas - 2ª série B - 2026  
-**Lógica e Linguagem de Programação** - 2º Bimestre  
+**Escola Manoel Ignácio** - Desenvolvimento de Sistemas - 3ª série B - 2026  
+**Programação Frontend** - 3º Bimestre  
 `nome@dev:~$_`
 
 ---
