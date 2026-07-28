@@ -1,3 +1,4 @@
+# Work in progress
 # Registro de Atividade - Otimizando a Performance Web
 
 **Escola Manoel Ignácio** - Desenvolvimento de Sistemas - 3ª série B - 2026  
