@@ -8,7 +8,7 @@
 
 ## 🎯 Contexto e Objetivo
 
-Vocês foram contratados para otimizar a performance de uma aplicação web, enfrentando problemas de carregamento lento. Para isso, vocês implementarão Lazy Loading nas imagens, utilizarão um layout em **Grid CSS** com limite de 2 colunas para posicionar a galeria mais ao fundo da página, usarão minificação do CSS para reduzir o tamanho dos arquivos e realizarão uma análise de performance usando uma ferramenta de diagnóstico (Lighthouse). O objetivo é aprimorar a experiência do usuário, reduzindo o tempo de carregamento e o uso de recursos.
+Vocês foram contratados para otimizar a performance de uma aplicação web, enfrentando problemas de carregamento lento. Para isso, vocês implementarão Lazy Loading nas imagens, utilizarão um layout em **Grid CSS** com 1 coluna e altura definida de 500px para posicionar a galeria mais ao fundo da página, usarão minificação do CSS para reduzir o tamanho dos arquivos e realizarão uma análise de performance usando uma ferramenta de diagnóstico (Lighthouse). O objetivo é aprimorar a experiência do usuário, reduzindo o tempo de carregamento e o uso de recursos.
 
 > **Atenção:** A estrutura de código base necessária para iniciar esta atividade encontra-se em anexo ao final deste documento.
 
@@ -16,7 +16,7 @@ Vocês foram contratados para otimizar a performance de uma aplicação web, enf
 
 ## 📋 Tarefas a Realizar
 
-1. **Estrutura HTML e CSS:** Criem os arquivos `index.html` e `estilos.css` utilizando o código fornecido em anexo. Observem o uso de **Grid CSS** limitando o layout em 2 colunas e o espaçamento para posicionar as imagens mais ao fundo da página, forçando a rolagem. Use o atributo `loading="lazy"` nas tags `<img>` para implementar Lazy Loading.
+1. **Estrutura HTML e CSS:** Criem os arquivos `index.html` e `estilos.css` utilizando o código fornecido em anexo. Observem o uso de **Grid CSS** configurando o layout em 1 coluna com altura de 500px nas imagens e o espaçamento para posicionar a galeria mais ao fundo da página, forçando a rolagem. Use o atributo `loading="lazy"` nas tags `<img>` para implementar Lazy Loading.
 
 2. **Preparar imagens:** Baixem três imagens de repositórios gratuitos (como Unsplash ou Pixabay), nomeiem como `imagem1.jpg`, `imagem2.jpg` e `imagem3.jpg`, e salvem na mesma pasta.
 
@@ -99,7 +99,7 @@ h1 {
 
 .galeria-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Limita a galeria em no máximo 2 colunas */
+  grid-template-columns: 1fr; /* Configura a galeria em 1 coluna */
   gap: 20px;
   max-width: 800px;
   width: 100%;
@@ -107,7 +107,7 @@ h1 {
 
 img {
   width: auto;
-  height: 350px;
+  height: 500px;
   max-width: 100%;
   object-fit: cover;
   border-radius: 8px;
